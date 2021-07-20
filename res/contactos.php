@@ -15,12 +15,19 @@ while ($row = mysqli_fetch_array($id_consulta)) {
         //Imprime en pantalla los contactos con ayuda de un bucle for
         for ($i=0; $i < sizeof($nombre) - 1; $i++) { 
             echo '
-            <tr onclick="chatear(', $numero, ')">
+            <tr>
             <td class="td_foto">
             <img src= "res/contacto_default_picture.png">
             </td>
-            <td class="td_nombre">', $nombre[0],  '</td>
-            </tr>';
+            <td class="td_nombre">
+            <form action="chat.php" method="post" id="form" onclick="chatear(this)">
+            ', $nombre[0], '
+            <input type="hidden" name="id" value="', $numero, '">
+            <input type="hidden" name="nombre" value="', $nombre[0], '">
+            </form>
+            </td>
+            </tr>
+            ';
         }
     }
 

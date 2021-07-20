@@ -16,10 +16,12 @@ body{
     margin: 0px;
 }
 .barra_superior{
+    color: white;
     background: black;
     position: absolute;
     width: 100%;
     height: 50px;
+    text-align: inherit;
 }
 .ajustes{
     position: absolute;

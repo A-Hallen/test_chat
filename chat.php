@@ -1,6 +1,8 @@
 <?php
 //Se busca en la computadora del usuario si existe alguna cookie llamada ID_USUARIO si no se encuentra se redirije a loguear
 $a = $_COOKIE["ID_USUARIO"];
+$indice = $_POST["id"];
+$nombre = $_POST["nombre"];
 if (!$a) {
     header("location: login.html");
 }
@@ -17,6 +19,11 @@ if (!$a) {
 </head>
 <body>
     <div class="barra_superior" id="barra_superior">
+        <!-- php -->
+        <?php
+        echo $nombre;
+        ?>
+        <!-- php -->
         <div class="ajustes" id="Div_ajustes" onclick="ajustes()">
             <canvas id="canvas" height="40px" width="40px"></canvas>
         </div>
