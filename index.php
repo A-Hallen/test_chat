@@ -17,8 +17,7 @@ if (!$a) {
 </head>
 <body>
     <div class="barra_superior" id="barra_superior">
-        <canvas id="foto_de_perfil_por_defecto" height="50px" width="50px">
-        </canvas>
+
     </div>
     <table>
         <?php
