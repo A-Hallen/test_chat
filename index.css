@@ -1,5 +1,7 @@
 
-
+body{
+    background-color: black;
+}
 .barra_superior{
     position: absolute;
     height: 50px;
@@ -19,6 +21,8 @@ table{
     left: 0px;
     background: rgb(0, 0, 0);
     font-size: 20px;
+    user-select: none;
+    cursor: pointer;
 }
 .td_foto{
     position: relative;

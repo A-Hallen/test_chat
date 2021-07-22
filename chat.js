@@ -1,4 +1,5 @@
-
+console.log(remitente);
+console.log(destinatario);
 //Declaracion de variables
 const chat = document.getElementById("chat");
 const barra_superior = document.getElementById("barra_superior");
@@ -8,7 +9,8 @@ const cuerpo         = document.getElementById("cuerpo");
 const Div_ajustes    = document.getElementById("Div_ajustes");
 const texto          = document.getElementById("texto");
 const send_button    = document.getElementById("send_button");
-//añadir evento click para cerrar el menu emergente
+const retroceder     =document.getElementById("retroceder");
+//aï¿½adir evento click para cerrar el menu emergente
 cuerpo.addEventListener('click', out);
 function out() {
     Menu_ajustes.style.display = "none";
@@ -21,6 +23,8 @@ function ajustes() {
 }
 //canvas del icono de menu (El que tiene 3 punticos verticales we)
 dibujar();
+dibujar_send();
+dibujar_retroceder();
 function dibujar(){
 let lienzo = canvas.getContext("2d");
 lienzo.strokeStyle = "#afafaf";
@@ -35,9 +39,8 @@ lienzo.arc(20, 30, 2, 0*Math.PI, 2*Math.PI);
 lienzo.stroke();}
 //fin del canvas
 //canvas del emoji que aparece al lado del area de texto
-dibujar_send();
 function dibujar_send() {
-lienzo = send_button.getContext("2d");
+let lienzo = send_button.getContext("2d");
 lienzo.moveTo(10, 10);
 lienzo.lineTo(60, 35);
 lienzo.lineTo(10, 60);
@@ -51,9 +54,13 @@ lienzo.fillStyle = "white";
 lienzo.fill();
 lienzo.stroke();
 }
-
 //fin del canvas
+//funcion que se utiliza para agrandar el area de texto cuando el mensaje es muy grande
 function text_area_change() {
+    if (texto.value == "") {
+        texto.style.height = texto.scrollHeight + 'px';
+        chat.style.height = texto.scrollHeight + 'px';  
+    }
     if (texto.scrollHeight < 200) {
         texto.style.height = "auto";
         chat.style.height  = "auto";
@@ -61,4 +68,33 @@ function text_area_change() {
         chat.style.height = texto.scrollHeight + 'px';
     }
     
+}
+//funcion para el boton de retroceder
+function retroceder_func() {
+    window.history.go(-1);
+}
+//funcion que dibuja el boton retroceder
+function dibujar_retroceder() {
+ let lienzo = retroceder.getContext("2d");
+ lienzo.lineWidth = 2;
+ lienzo.strokeStyle = "#fff";
+ lienzo.moveTo(10, 20);
+ lienzo.lineTo(30, 20);
+ lienzo.moveTo(20, 10);
+ lienzo.lineTo(10, 20);
+ lienzo.lineTo(20, 30);
+
+ lienzo.stroke();
+}
+//funcion para enviar el mensaje
+function send_click() {
+    let json = {
+        "text": texto.value,
+        "remitente": remitente,
+        "destinatario": destinatario        
+    };
+    const Http = new window.XMLHttpRequest();
+    Http.open('POST', 'http://localhost:3000/num', true);
+    Http.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    Http.send(JSON.stringify(json));
 }

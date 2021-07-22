@@ -8,6 +8,7 @@ html{
     overflow: hidden;
 }
 body{
+    background-color: black;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -16,12 +17,12 @@ body{
     margin: 0px;
 }
 .barra_superior{
+    display: flex;
     color: white;
     background: black;
-    position: absolute;
     width: 100%;
     height: 50px;
-    text-align: inherit;
+    user-select: none;
 }
 .ajustes{
     position: absolute;
@@ -78,6 +79,7 @@ body{
     outline: none;
 }
 .chat textarea::placeholder{
+    user-select: none;
     color: rgb(112, 112, 112);
 }
 
@@ -88,4 +90,14 @@ body{
 .send_button:active{
     background: #f0f8ff30;
 }
-
+.foto_contacto{
+    position: relative;
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 30px;
+    top: 10px;
+}
+.retroceder{
+    background: transparent;
+    top: 5px;
+}

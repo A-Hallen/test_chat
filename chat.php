@@ -19,11 +19,15 @@ if (!$a) {
 </head>
 <body>
     <div class="barra_superior" id="barra_superior">
-        <!-- php -->
-        <?php
-        echo $nombre;
-        ?>
-        <!-- php -->
+        <canvas id="retroceder" class="retroceder" height="40px" width="40px" onclick="retroceder_func()"></canvas>
+            <img src="res/contacto_default_picture.png" class="foto_contacto">
+            <p>
+                <!-- php -->
+                <?php
+                echo $nombre;
+                ?>
+                <!-- php -->
+            </p>
         <div class="ajustes" id="Div_ajustes" onclick="ajustes()">
             <canvas id="canvas" height="40px" width="40px"></canvas>
         </div>
@@ -34,8 +38,13 @@ if (!$a) {
     
     <div class="chat" id="chat">
             <textarea id="texto" oninput="text_area_change()" placeholder="Mensaje"></textarea>
-            <canvas id="send_button" class="send_button" height="70px" width="70px" onclick="click_canvas()"></canvas>
+            <canvas id="send_button" class="send_button" height="70px" width="70px" onclick="send_click()"></canvas>
     </div>
-</body>
 </html>
+<script type="text/javascript">
+    remitente = '<?php echo $a;?>';
+</script>
+<script>
+    destinatario = '<?php echo $a;?>';
+</script>
 <script src="chat.js"></script>
