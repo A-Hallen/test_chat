@@ -1,15 +1,13 @@
-console.log(remitente);
-console.log(destinatario);
-//Declaracion de variables
-const chat = document.getElementById("chat");
-const barra_superior = document.getElementById("barra_superior");
-const canvas         = document.getElementById("canvas");
-const Menu_ajustes   = document.getElementById("Menu_ajustes");
-const cuerpo         = document.getElementById("cuerpo");
-const Div_ajustes    = document.getElementById("Div_ajustes");
-const texto          = document.getElementById("texto");
-const send_button    = document.getElementById("send_button");
-const retroceder     =document.getElementById("retroceder");
+const chat            = document.getElementById("chat");
+const barra_superior  = document.getElementById("barra_superior");
+const canvas          = document.getElementById("canvas");
+const Menu_ajustes    = document.getElementById("Menu_ajustes");
+const cuerpo          = document.getElementById("cuerpo");
+const Div_ajustes     = document.getElementById("Div_ajustes");
+const texto           = document.getElementById("texto");
+const send_button     = document.getElementById("send_button");
+const retroceder      = document.getElementById("retroceder");
+
 //a�adir evento click para cerrar el menu emergente
 cuerpo.addEventListener('click', out);
 function out() {
@@ -88,6 +86,9 @@ function dibujar_retroceder() {
 }
 //funcion para enviar el mensaje
 function send_click() {
+    if (texto.value == '') {
+        return;
+    }
     let json = {
         "text": texto.value,
         "remitente": remitente,
@@ -97,4 +98,6 @@ function send_click() {
     Http.open('POST', 'http://localhost:3000/num', true);
     Http.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     Http.send(JSON.stringify(json));
+    texto.value = '';
+    text_area_change();
 }

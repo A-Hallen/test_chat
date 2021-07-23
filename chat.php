@@ -18,6 +18,7 @@ if (!$a) {
     <title>chat</title>
 </head>
 <body>
+
     <div class="barra_superior" id="barra_superior">
         <canvas id="retroceder" class="retroceder" height="40px" width="40px" onclick="retroceder_func()"></canvas>
             <img src="res/contacto_default_picture.png" class="foto_contacto">
@@ -41,10 +42,13 @@ if (!$a) {
             <canvas id="send_button" class="send_button" height="70px" width="70px" onclick="send_click()"></canvas>
     </div>
 </html>
+<!--Aqui pasamos nuestro id a jabascript-->
 <script type="text/javascript">
     remitente = '<?php echo $a;?>';
 </script>
-<script>
-    destinatario = '<?php echo $a;?>';
+<!--Aqui pasamos el id del remitente, es decir, el que va a recivir nuestros mensajes, la persona con la que vamos a chatear-->
+<script type="text/javascript">
+    destinatario = <?php echo $indice;?>;
 </script>
+
 <script src="chat.js"></script>
