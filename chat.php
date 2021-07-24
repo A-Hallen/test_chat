@@ -4,10 +4,7 @@ $a            = $_COOKIE["ID_USUARIO"];
 $destinatario = $_POST["id"];
 $nombre       = $_POST["nombre"];
 include 'conectado.php';//llamamos al archivo conectado que nos conecta a la base de datos
-//$consulta = mysqli_query($conection, "SELECT Nombre FROM usuarios WHERE id = '12'");
-//$result   = mysqli_fetch_array($consulta);
-//echo 'Este es el resultado: ';
-//echo $result;
+//hacemos una consulta para determinar la sala en la que nos encontramos
 $salaQuery            = mysqli_query($conection, "SELECT id_sala FROM sala_usuario WHERE id_usuario = '13' AND id_usuario2 = '12'");
 $sala                 = mysqli_fetch_array($salaQuery);
 if (!$a) {
@@ -41,7 +38,20 @@ if (!$a) {
         </div>
     </div>
     
-    <div class="cuerpo" id="cuerpo"></div>
+    <div class="cuerpo" id="cuerpo">
+    <!-- Aqui va a ir el código php para imprimir el historial de chat, por el momento dicho historial no va a tener un límite, más tarde si hay que ponerle uno we -->
+    <table class="tabla_historial" id="tabla_historial">
+        <?php
+                $historialConsul = mysqli_query($conection, "SELECT mensaje FROM mensaje WHERE idSala= '1'");
+                while ($row = mysqli_fetch_array($historialConsul)) {
+                    $mensaje = $row[0].PHP_EOL;
+                    echo '<tr><td>', $mensaje, '</td></tr>';
+                }
+
+        ?>
+    </table>
+
+    </div>
     <div class="Menu_ajustes" id="Menu_ajustes" style="display: none;"></div>
     
     <div class="chat" id="chat">

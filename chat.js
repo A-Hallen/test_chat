@@ -84,8 +84,16 @@ function dibujar_retroceder() {
 
  lienzo.stroke();
 }
+texto. addEventListener('keypress', function(event) {
+    var key = window.event.keyCode;
+    if (key == 13) {
+        event.preventDefault();
+        send_click();
+    }
+});
 //funcion para enviar el mensaje
 function send_click() {
+
     if (texto.value == '') {
         return;
     }

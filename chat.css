@@ -101,3 +101,14 @@ body{
     background: transparent;
     top: 5px;
 }
+table{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: block;
+    border: 1px solid white;
+    color: white;
+}
+tr{
+
+}
