@@ -1,8 +1,15 @@
 <?php
 //Se busca en la computadora del usuario si existe alguna cookie llamada ID_USUARIO si no se encuentra se redirije a loguear
-$a = $_COOKIE["ID_USUARIO"];
-$indice = $_POST["id"];
-$nombre = $_POST["nombre"];
+$a            = $_COOKIE["ID_USUARIO"];
+$destinatario = $_POST["id"];
+$nombre       = $_POST["nombre"];
+include 'conectado.php';//llamamos al archivo conectado que nos conecta a la base de datos
+//$consulta = mysqli_query($conection, "SELECT Nombre FROM usuarios WHERE id = '12'");
+//$result   = mysqli_fetch_array($consulta);
+//echo 'Este es el resultado: ';
+//echo $result;
+$salaQuery            = mysqli_query($conection, "SELECT id_sala FROM sala_usuario WHERE id_usuario = '13' AND id_usuario2 = '12'");
+$sala                 = mysqli_fetch_array($salaQuery);
 if (!$a) {
     header("location: login.html");
 }
@@ -44,11 +51,11 @@ if (!$a) {
 </html>
 <!--Aqui pasamos nuestro id a jabascript-->
 <script type="text/javascript">
-    remitente = '<?php echo $a;?>';
+    idUsuario = '<?php echo $a;?>';
 </script>
 <!--Aqui pasamos el id del remitente, es decir, el que va a recivir nuestros mensajes, la persona con la que vamos a chatear-->
 <script type="text/javascript">
-    destinatario = <?php echo $indice;?>;
+    sala = <?php echo $sala[0];?>;
 </script>
 
 <script src="chat.js"></script>

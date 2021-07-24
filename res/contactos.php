@@ -2,7 +2,7 @@
 include 'conectado.php';//llamamos al archivo conectado que nos conecta a la base de datos
 
 //Busca en la base de datos los contactos que tiene el usuario actual, gracias a su id claro está
-$id_consulta     = mysqli_query($conection, "SELECT ID_CONTACTO FROM contactos WHERE id = '12'");
+$id_consulta     = mysqli_query($conection, "SELECT ID_CONTACTO FROM contactos WHERE id     = '12'");
 //test
 while ($row = mysqli_fetch_array($id_consulta)) {
     $numero = $row[0].PHP_EOL;
@@ -13,7 +13,7 @@ while ($row = mysqli_fetch_array($id_consulta)) {
         echo ' No se encontraron contactos o la consulta arrojó un error';
     } else {
         //Imprime en pantalla los contactos con ayuda de un bucle for
-        for ($i=0; $i < sizeof($nombre) - 1; $i++) { 
+        for ($i=0; $i < sizeof($nombre) - 1; $i++) {
             echo '
             <tr>
             <td class="td_foto">

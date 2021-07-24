@@ -1,0 +1,20 @@
+{
+    "sqltools.languageServerEnv": {
+    
+    },
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "askForPassword": true,
+            "driver": "MySQL",
+            "database": "chat",
+            "username": "root",
+            "name": "localhostChat"
+        }
+    ]
+}

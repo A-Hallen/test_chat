@@ -90,9 +90,11 @@ function send_click() {
         return;
     }
     let json = {
+        "idUsuario": idUsuario,
+        "idSala": sala,       
         "text": texto.value,
-        "remitente": remitente,
-        "destinatario": destinatario        
+        "idTipo": 1,       
+        "url": null,       
     };
     const Http = new window.XMLHttpRequest();
     Http.open('POST', 'http://localhost:3000/num', true);
