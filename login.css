@@ -1,0 +1,91 @@
+body{
+    background: black;
+}
+.form{
+    font-family: 'lekton', sans-serif;
+    position: relative;
+    padding: 5%;
+    width: 50%;
+    margin: auto;
+    background: linear-gradient(45deg, black, #404040e3);
+    color: white;
+    top: 20px;
+    box-shadow: 3px 4px 13px 0px rgb(0 0 0 / 28%);
+    border: 1px solid antiquewhite;
+}
+.text-header{
+    font-size: 13px;
+    margin-left: 10px;
+    background: linear-gradient(90deg, #424141, antiquewhite);
+    width: fit-content;
+    width: -moz-fit-content;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+h2{
+    color: transparent;
+}
+.usuario-container{
+    padding: 5px;
+    width: 90%;
+    margin: auto;
+}
+#usuario, #password{
+    border: none;
+    padding: 0px;
+    border-radius: 5px;
+    height: 25px;
+    background: black;
+    width: 100%;
+    color: white;
+}
+#usuario:focus-visible{
+    outline: none;
+}
+#password:focus-visible{
+    outline: none;
+}
+.form-header-canvas{
+    border: 1px solid white;
+    margin-left: 10px;
+}
+.submit{
+    background: linear-gradient(95deg, #8e8b8b 0%, antiquewhite 62%);
+    font-size: 15px;
+    box-shadow: 1px 1px 2px black;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+.submit:hover{
+    background: linear-gradient(270deg, #8e8b8b 0%, #fff1e3 62%);
+}
+.submit:active{
+    background: linear-gradient(95deg, #474747 0%, antiquewhite 62%);
+    box-shadow: inset 3px 2px 3px 2px #101010
+}
+.buttons-div{
+    position: relative;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+a{
+    text-decoration: none;
+    color: #ad9c87;
+}
+a:hover{
+    color: antiquewhite;
+}
+a:active{
+    color: #ad9c87;
+}
+.div-usuario-password{
+    background: linear-gradient(90deg, #4b4a4a 0%, #ffdcac 51%, #ffdcac 50%, #424141 100%);
+    padding: 1px;
+    border-radius: 5px;
+}
+hr{
+    border: none;
+    height: 3px;
+    background: linear-gradient(90deg, #4b4a4a 0%, #ffdcac 51%, #ffdcac 50%, #424141 100%);
+}
