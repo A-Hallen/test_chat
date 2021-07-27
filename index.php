@@ -1,10 +1,15 @@
 <?php
-//Se busca en la computadora del usuario si existe alguna cookie llamada ID_USUARIO si no se encuentra se redirije a loguear
-$a = $_COOKIE["ID_USUARIO"];
-if (!$a) {
-    header("location: login.html");
+session_start();
+include 'conectado.php';
+if (isset($_COOKIE['dfñlkgj'])) {
+   $galleta = $_COOKIE['dfñlkgj'];
+   $GetSessionQuery = mysqli_query($conection, "SELECT Session_id FROM usuarios WHERE COOKIE_ID = '$galleta'");
+   $GetSessionArray = mysqli_fetch_array($GetSessionQuery);
+   $_SESSION['ID_SESSION'] = $GetSessionArray[0];
 }
-
+if (!isset($_SESSION['ID_SESSION'])) {
+    header("location: /login.html");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

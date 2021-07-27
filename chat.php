@@ -1,16 +1,30 @@
 <?php
-//Se busca en la computadora del usuario si existe alguna cookie llamada ID_USUARIO si no se encuentra se redirije a loguear
-$a            = $_COOKIE["ID_USUARIO"];
-$destinatario = $_POST["id"];
-$nombre       = $_POST["nombre"];
-include 'conectado.php';//llamamos al archivo conectado que nos conecta a la base de datos
-//hacemos una consulta para determinar la sala en la que nos encontramos
-$salaQuery            = mysqli_query($conection, "SELECT id_sala FROM sala_usuario WHERE id_usuario = '13' AND id_usuario2 = '12'");
-$sala                 = mysqli_fetch_array($salaQuery);
-if (!$a) {
-    header("location: login.html");
+session_start();
+include 'conectado.php';
+$sala = $_POST['id_sala'];
+if (isset($_COOKIE['dfñlkgj'])) {
+   $galleta = $_COOKIE['dfñlkgj'];
+   $GetSessionQuery = mysqli_query($conection, "SELECT Session_id FROM usuarios WHERE COOKIE_ID = '$galleta'");
+   $GetSessionArray = mysqli_fetch_array($GetSessionQuery);
+   $_SESSION['ID_SESSION'] = $GetSessionArray[0];
 }
+if (!isset($_SESSION['ID_SESSION'])) {
+    header("location: index.php");
+} else {
+    $stringSession = $_SESSION['ID_SESSION'];
+    $GetUserQuery = mysqli_query($conection, "SELECT Nombre FROM usuarios WHERE Session_id = '$stringSession' ");
+    $GetUserArray = mysqli_fetch_array($GetUserQuery);
+    $nombre = $GetUserArray[0];
+    //echo '<script>alert("pingaaa")</script>';
+    $GetContacto = mysqli_query($conection, "SELECT id_usuario FROM sala_usuario WHERE id_usuario = '12' AND id_sala = '$sala'");
+    $GetContactoArray = mysqli_fetch_array($GetContacto);
+    if (mysqli_num_rows($GetContacto) == NULL) {
+        header("location: index.php");
+    } else {
+    }
 
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +33,11 @@ if (!$a) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="chat.css">
-    <title>chat</title>
+    <title>
+        <?php
+        echo $nombre;
+        ?>
+    </title>
 </head>
 <body>
 
@@ -61,7 +79,7 @@ if (!$a) {
 </html>
 <!--Aqui pasamos nuestro id a jabascript-->
 <script type="text/javascript">
-    idUsuario = '<?php echo $a;?>';
+    idUsuario = '<?php echo $_SESSION['ID_SESSION'];?>';
 </script>
 <!--Aqui pasamos el id del remitente, es decir, el que va a recivir nuestros mensajes, la persona con la que vamos a chatear-->
 <script type="text/javascript">
