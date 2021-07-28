@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: text/html; charset=utf-8');
 include 'conectado.php';
 $sala = $_POST['id_sala'];
 if (isset($_COOKIE['dfñlkgj'])) {
@@ -11,23 +12,32 @@ if (isset($_COOKIE['dfñlkgj'])) {
 if (!isset($_SESSION['ID_SESSION'])) {
     header("location: index.php");
 } else {
+    //buscamos el nombre del usuario en la bd
     $stringSession = $_SESSION['ID_SESSION'];
     $GetUserQuery = mysqli_query($conection, "SELECT Nombre FROM usuarios WHERE Session_id = '$stringSession' ");
     $GetUserArray = mysqli_fetch_array($GetUserQuery);
     $nombre = $GetUserArray[0];
     //echo '<script>alert("pingaaa")</script>';
-    $GetContacto = mysqli_query($conection, "SELECT id_usuario FROM sala_usuario WHERE id_usuario = '12' AND id_sala = '$sala'");
-    $GetContactoArray = mysqli_fetch_array($GetContacto);
-    if (mysqli_num_rows($GetContacto) == NULL) {
+    //Nos aseguramos de que el usuario realmente está activo en esta sala
+    $SalaVerification = mysqli_query($conection, "SELECT id_usuario FROM sala_usuario WHERE id_usuario = '12' AND id_sala = '$sala'");
+    if (mysqli_num_rows($SalaVerification) == NULL) {
         header("location: index.php");
     } else {
+        //Obtenemos el id de la otra persona que se encuentra en la sala  $contactoId
+    $GetContactoQueryId = mysqli_query($conection, "SELECT id_usuario FROM sala_usuario WHERE id_usuario != '12' AND id_sala = '$sala'");
+    $GetContactoArrayId = mysqli_fetch_array($GetContactoQueryId);
+    $contactoId = $GetContactoArrayId[0];
+
+    $ContactoNameQuery = mysqli_query($conection, "SELECT Nombre FROM usuarios WHERE id = '$contactoId'");
+    $ContactoNameArray = mysqli_fetch_array($ContactoNameQuery);
+    $contactoName = $ContactoNameArray[0];
     }
 
 
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +57,7 @@ if (!isset($_SESSION['ID_SESSION'])) {
             <p>
                 <!-- php -->
                 <?php
-                echo $nombre;
+                echo $contactoName;
                 ?>
                 <!-- php -->
             </p>
@@ -58,17 +68,19 @@ if (!isset($_SESSION['ID_SESSION'])) {
     
     <div class="cuerpo" id="cuerpo">
     <!-- Aqui va a ir el código php para imprimir el historial de chat, por el momento dicho historial no va a tener un límite, más tarde si hay que ponerle uno we -->
-    <table class="tabla_historial" id="tabla_historial">
-        <?php
-                $historialConsul = mysqli_query($conection, "SELECT mensaje FROM mensaje WHERE idSala= '1'");
-                while ($row = mysqli_fetch_array($historialConsul)) {
+        <div class="table_div">
+
+            <table class="tabla_historial" id="tabla_historial">
+                <?php
+                    $historialConsul = mysqli_query($conection, "SELECT mensaje FROM mensaje WHERE idSala= '$sala'");
+                    while ($row = mysqli_fetch_array($historialConsul)) {
                     $mensaje = $row[0].PHP_EOL;
-                    echo '<tr><td>', $mensaje, '</td></tr>';
-                }
-
-        ?>
-    </table>
-
+                    echo '<tr><td>', utf8_encode($mensaje), '</td></tr>';
+                    }  
+                ?>
+            </table>
+        </div>
+    
     </div>
     <div class="Menu_ajustes" id="Menu_ajustes" style="display: none;"></div>
     
@@ -83,7 +95,7 @@ if (!isset($_SESSION['ID_SESSION'])) {
 </script>
 <!--Aqui pasamos el id del remitente, es decir, el que va a recivir nuestros mensajes, la persona con la que vamos a chatear-->
 <script type="text/javascript">
-    sala = <?php echo $sala[0];?>;
+    sala = <?php echo $sala;?>;
 </script>
 
 <script src="chat.js"></script>

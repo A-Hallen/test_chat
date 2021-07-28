@@ -7,6 +7,7 @@ const Div_ajustes     = document.getElementById("Div_ajustes");
 const texto           = document.getElementById("texto");
 const send_button     = document.getElementById("send_button");
 const retroceder      = document.getElementById("retroceder");
+const historial       = document.getElementById("tabla_historial");
 
 //a�adir evento click para cerrar el menu emergente
 cuerpo.addEventListener('click', out);
@@ -93,7 +94,6 @@ texto. addEventListener('keypress', function(event) {
 });
 //funcion para enviar el mensaje
 function send_click() {
-
     if (texto.value == '') {
         return;
     }
@@ -108,6 +108,7 @@ function send_click() {
     Http.open('POST', 'http://localhost:3000/num', true);
     Http.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     Http.send(JSON.stringify(json));
+    historial.insertAdjacentHTML('beforeend', '<tr><td>' + texto.value + '</td></tr>');
     texto.value = '';
     text_area_change();
 }
