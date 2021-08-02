@@ -27,11 +27,9 @@ if ($usuario == false || $password == false) {//si se trata de una inyeccion SQL
         
     }
     session_start();//Se inicia la variable de session 
-    if (!isset($_SESSION['ID_SESSION'])) {//Solo si no existe
         $getSessionQuery = mysqli_query($conection, "SELECT Session_id FROM usuarios WHERE Nombre = '$usuario'");
         $SessionQueryArray= mysqli_fetch_array($getSessionQuery);
         $_SESSION['ID_SESSION'] = $SessionQueryArray[0];
-    }//Se actualiza la session id de la BD
     header("location: /index.php");//Si la contraseña es incorrecta se manda al login otra vez
 
 }

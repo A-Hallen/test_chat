@@ -38,12 +38,25 @@ body{
 }
 .Menu_ajustes{
     position: absolute;
-    width: 100px;
     height: 200px;
     background: #000000a3;
     right: 0px;
-    border: 1px solid black;
+    border: 1px solid rgb(44, 44, 44);
     z-index: 1;
+    color: white;
+    font-size: 20px;
+    user-select: none;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.lista{
+    list-style-type: none;
+    padding: 0px;
+    margin: 10px;
+}
+.element:active{
+    background: #ffffff45;
+    outline: 10px solid #ffffff45;
 }
 .cuerpo{
     display: block;
@@ -100,6 +113,11 @@ body{
 .retroceder{
     background: transparent;
     top: 5px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+}
+.retroceder:active{
+    background: #ffffff3f;
 }
 table{
     overflow: auto;
@@ -109,10 +127,64 @@ table{
     display: block;
     border: 1px solid white;
     color: white;
+    font-size: 20px;
 }
 .table_div{
     position: absolute;
     top: 0px;
     bottom: 127px;
     width: 100%;
+}
+.trOther{
+    position: relative;
+    display: flex;
+    border: 1px solid antiquewhite;
+    padding: 5px;
+    width: fit-content;
+    max-width: 75%;
+    margin-bottom: 5px;
+    overflow-wrap: anywhere;
+    flex-direction: column;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: black;
+    background-color: antiquewhite;
+    margin-left: 10px;
+}
+.trTu{
+    position: relative;
+    display: flex;
+    border: 1px solid antiquewhite;
+    padding: 5px;
+    width: fit-content;
+    max-width: 75%;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    overflow-wrap: anywhere;
+    flex-direction: column;
+    background: black;
+    user-select: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.nombre{
+    font-size: 13px;
+    font-family: system-ui;
+    font-style: italic;
+    color: gray;
+    background-color: #1f1f1f;
+}
+.fecha{
+    text-align: end;
+    font-family: system-ui;
+    font-size: 13px;
+    color: gray;
+}
+.fechaOther{
+    text-align: end;
+    font-family: system-ui;
+    font-size: 13px;
+    color: gray;
 }

@@ -8,6 +8,7 @@ const texto           = document.getElementById("texto");
 const send_button     = document.getElementById("send_button");
 const retroceder      = document.getElementById("retroceder");
 const historial       = document.getElementById("tabla_historial");
+document.onload = scrollFunc();
 
 //a�adir evento click para cerrar el menu emergente
 cuerpo.addEventListener('click', out);
@@ -24,6 +25,9 @@ function ajustes() {
 dibujar();
 dibujar_send();
 dibujar_retroceder();
+function scrollFunc() {
+    historial.scrollTop = historial.scrollHeight - historial.clientHeight;
+}
 function dibujar(){
 let lienzo = canvas.getContext("2d");
 lienzo.strokeStyle = "#afafaf";
@@ -101,14 +105,16 @@ function send_click() {
         "idUsuario": idUsuario,
         "idSala": sala,       
         "text": texto.value,
+        "nombre": nombre,
         "idTipo": 1,       
         "url": null,       
     };
     const Http = new window.XMLHttpRequest();
-    Http.open('POST', 'http://localhost:3000/num', true);
+    Http.open('POST', 'http://192.168.13.17:3000/num', true);
     Http.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     Http.send(JSON.stringify(json));
-    historial.insertAdjacentHTML('beforeend', '<tr><td>' + texto.value + '</td></tr>');
+    historial.insertAdjacentHTML('beforeend', '<tr class="trTu"><td class="nombre">' + nombre + '</td><td>' + texto.value + '</td><td class="fecha">Ahora</td></tr>');
+    historial.scrollTop = historial.scrollHeight - historial.clientHeight;
     texto.value = '';
     text_area_change();
 }
