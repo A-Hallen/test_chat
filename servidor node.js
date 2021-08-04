@@ -27,37 +27,41 @@ app.use(cors({origin:'*'}));
 
 //Aqui comienza la logica de las salas de chat
 io.on('connection', function (client) {
-    client.on('join', function (data) {
-        console.log('unido a la sala' + data.sala);
-        client.emit('ja');
-      
-      
-      
-      //Aqui es donde recivimos los mensajes del cliente A y se lo mandamos al cliente b
-      //Aqui se encuentran las variables que envía el cliente en formato JSON
-      var idUsuario = data.idUsuario;
-      var idSala    = data.sala;
-      var text      = data.textoValue;
-      var nombre    = data.nombre
-      var idTipo    = data.idTipo;
-      var url       = data.url;
+    
 
-    console.log(nombre);
-        // si deseo utilizar el resultado de la consulta,
-        // debo crear una función asíncrona y llamar a doQuery() usando await.
-        const doStuffWithResults = async () => {
+
+    client.on('join', function (sala) {
+        client.emit(sala);
+        client.on(sala, function (data) {        
+        
+            //Aqui es donde recivimos los mensajes del cliente A y se lo mandamos al cliente b
+            //Aqui se encuentran las variables que envía el cliente en formato JSON
+            var idUsuario = data.idUsuario;
+            var idSala    = data.sala;
+            var text      = data.textoValue;
+            var nombre    = data.nombre
+            var idTipo    = data.idTipo;
+            var url       = data.url;
+      
+            console.log(nombre);
+            // si deseo utilizar el resultado de la consulta,
+            // debo crear una función asíncrona y llamar a doQuery() usando await.
+            const doStuffWithResults = async () => {
             //Estas son las consultas que se le va a realizar a la base de datos.
             const insertarMensaje = "INSERT INTO `mensaje`(`id`, `nombre`, `idUsuario`, `idSala`, `mensaje`, `fecha`, `idTipo`, `url`) VALUES (NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?)";
-
-
+          
             const consulEnviarMensaje = await doQuery(insertarMensaje,nombre, idUsuario, idSala, text, idTipo, url);
             // Aquí puedes usar el resultado de tu consulta
+               ////////test of rooms
+               client.join('room' + sala);
+               io.to('room' + sala).emit('some-event', {nombre, text});
+               ///////test of rooms
             
-        }
-    
-        // llamamos a nuestro método
-        doStuffWithResults();
-
+            }
+        
+            // llamamos a nuestro método
+            doStuffWithResults();
+})
 })
 })
 var con = mysql.createConnection({

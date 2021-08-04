@@ -11,10 +11,9 @@ const historial       = document.getElementById("tabla_historial");
 //enviar saludo al servidor node js mediante un socket
 var socket = io.connect('http://192.168.13.17:3000/');
 socket.on('connect', function(){
-    socket.on('ja', function() {
-        console.log('hola mundo desde el server');
-    })
+
 });
+
 //////////////
 document.onload = scrollFunc();
 
@@ -104,23 +103,31 @@ texto. addEventListener('keypress', function(event) {
         send_click();
     }
 });
-//funcion para enviar el mensaje
-function send_click() {
 
+//funcion para enviar el mensaje
+
+function send_click() {
     if (texto.value == '') {
         return;
     }
 
 
-    historial.insertAdjacentHTML('beforeend', '<tr class="trTu"><td class="nombre">' + nombre + '</td><td>' + texto.value + '</td><td class="fecha">Ahora</td></tr>');
-    historial.scrollTop = historial.scrollHeight - historial.clientHeight;
-    text_area_change();
     //conectamos el socket.io y volvemos a establecer la conexion con el server por el canal join
     var socket = io.connect('http://192.168.13.17:3000/');
     textoValue = texto.value;
     url = null;
     idTipo = 1;
-    socket.emit('join', {idUsuario, sala, textoValue, nombre, idTipo, url});
+    socket.emit('join', sala);
+    socket.on(sala, function () {
+        socket.emit(sala, {idUsuario, sala, textoValue, nombre, idTipo, url});
+
+    })
+    socket.on('some-event', function (data) {
+        console.log(data);
+        historial.insertAdjacentHTML('beforeend', '<tr class="trTu"><td class="nombre">' + data.nombre + '</td><td>' + data.text + '</td><td class="fecha">Ahora</td></tr>');
+        historial.scrollTop = historial.scrollHeight - historial.clientHeight;
+        text_area_change();
+    })
     /////////////////////
     //Despues de enviar el mensaje borramos el contenido de la caja de texto
     texto.value = '';
