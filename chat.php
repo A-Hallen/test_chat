@@ -44,6 +44,7 @@ if (!isset($_SESSION['ID_SESSION'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="chat.css">
+    <script src="http://192.168.13.17:3000/socket.io/socket.io.js"></script>   
     <title>
         <?php
         echo $nombre;
